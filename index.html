@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รักเอที่สุดในโลก</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mitr:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0f0c20;
+            font-family: 'Mitr', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        .bg-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 71, 126, 0.15) 0%, rgba(0,0,0,0) 70%);
+            top: -10%;
+            left: -10%;
+            animation: drift 10s infinite alternate ease-in-out;
+            z-index: 1;
+        }
+
+        .bg-glow2 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(123, 97, 255, 0.15) 0%, rgba(0,0,0,0) 70%);
+            bottom: -10%;
+            right: -10%;
+            animation: drift 8s infinite alternate-reverse ease-in-out;
+            z-index: 1;
+        }
+
+        .container {
+            background: rgba(20, 16, 38, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 2.5rem 1.5rem;
+            border-radius: 32px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            z-index: 10;
+            border: 2px solid transparent;
+            background-image: linear-gradient(rgba(20, 16, 38, 0.9), rgba(20, 16, 38, 0.9)), 
+                              linear-gradient(45deg, #ff477e, #7b61ff, #00f2fe);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 71, 126, 0.2);
+            position: relative;
+        }
+
+        .container::before {
+            content: '★';
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            color: #00f2fe;
+            font-size: 1.2rem;
+            animation: blink 1s infinite alternate;
+        }
+
+        .container::after {
+            content: '★';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #ff477e;
+            font-size: 1.2rem;
+            animation: blink 1s infinite alternate 0.5s;
+        }
+
+        /* สไลด์โชว์รูปภาพ */
+        .photo-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .photo-wrapper {
+            width: 100%;
+            height: 280px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid #fff;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .hp-bar-wrapper {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #ff85a2;
+        }
+
+        .hp-bar {
+            flex-grow: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 0 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 71, 126, 0.3);
+        }
+
+        .hp-fill {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff477e, #ff85a2);
+            animation: hpPulse 2s infinite alternate;
+        }
+
+        .status-tag {
+            display: inline-block;
+            background: linear-gradient(90deg, rgba(255, 71, 126, 0.2), rgba(123, 97, 255, 0.2));
+            color: #fff;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            border: 1px solid #ff477e;
+            margin-bottom: 1.2rem;
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(255, 71, 126, 0.4);
+        }
+
+        h1 {
+            font-family: 'Itim', cursive;
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #00f2fe 0%, #ff477e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+            filter: drop-shadow(0 2px 10px rgba(0,242,254,0.4));
+        }
+
+        .subtitle {
+            color: #a5a1b8;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .love-btn {
+            background: linear-gradient(90deg, #ff477e, #7b61ff);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-family: 'Mitr', sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 71, 126, 0.4);
+            transition: 0.3s;
+        }
+
+        .love-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(123, 97, 255, 0.6);
+        }
+
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            animation: floatUp 5s linear infinite;
+            z-index: 2;
+        }
+
+        .floating-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
+            box-shadow: 0 0 10px rgba(255, 71, 126, 0.5);
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.2); }
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes hpPulse {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; box-shadow: 0 0 8px #ff477e; }
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg) scale(0); opacity: 0; }
+            20% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg) scale(1.3); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+    <div class="bg-glow2"></div>
+
+    <div class="container">
+        <div class="photo-container">
+            <div class="photo-wrapper">
+                <img class="slide active" src="7E2AA4DB-934D-4C32-A800-88634BA7EB0C.jpg" alt="รูปเอ 1">
+                <img class="slide" src="8E67A840-C91D-4EDC-808C-9EBA2103BA22.jpg" alt="รูปเอ 2">
+                <img class="slide" src="58AB81CA-1FD3-483E-A14A-579FA75CAAC1.jpg" alt="รูปเอ 3">
+                <img class="slide" src="58AB81CA-1FD3-483E-A14A-579FA75CAAC1.jpg" alt="รูปเอ 4">
+            </div>
+            <div class="hp-bar-wrapper">
+                <span>LV.999 รักเอ</span>
+                <div class="hp-bar"><div class="hp-fill"></div></div>
+                <span>100%</span>
+            </div>
+        </div>
+        
+        <div class="status-tag">✦ LOVE A ✦</div>
+        <h1>รักเอ<br>ที่สุดในโลก</h1>
+        <div class="subtitle">forever and ever</div>
+        
+        <button class="love-btn" onclick="burstHearts()">กดเติมความรัก ❤️</button>
+    </div>
+
+    <script>
+        // ระบบสลับรูปภาพอัตโนมัติ 4 รูป
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        setInterval(() => {
+            if(slides.length > 0) {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+        }, 2000); // เปลี่ยนรูปทุกๆ 3 วินาที
+
+        // ระบบของลอย
+        const emojis = ['💖', '✨', '🖤', '🤍', '💘', '⭐'];
+
+        function createParticle(x = null, isBurst = false) {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            
+            const shouldBeImage = Math.random() < 0.4;
+            
+            if (shouldBeImage && slides.length > 0) {
+                const img = document.createElement('img');
+                img.classList.add('floating-img');
+                img.src = slides[currentSlide].src; 
+                p.appendChild(img);
+            } else {
+                p.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                p.style.fontSize = Math.random() * 20 + 15 + 'px';
+            }
+            
+            if (isBurst && x) {
+                p.style.left = (x + (Math.random() * 120 - 60)) + 'px';
+                p.style.top = '75vh';
+                p.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+            } else {
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            }
+            
+            document.body.appendChild(p);
+            setTimeout(() => { p.remove(); }, 5000);
+        }
+
+        setInterval(() => createParticle(), 400);
+
+        function burstHearts() {
+            const btn = document.querySelector('.love-btn');
+            const rect = btn.getBoundingClientRect();
+            const posX = rect.left + (rect.width / 2);
+            
+            for(let i=0; i<15; i++) {
+                setTimeout(() => {
+                    createParticle(posX, true);
+                }, i * 40);
+            }
+        }
+    </script>
+
+</body>
+</html>
