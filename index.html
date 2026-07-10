@@ -16,216 +16,319 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #0f0c20;
+            background: #090514;
             font-family: 'Mitr', sans-serif;
-            overflow-x: hidden;
+            overflow: hidden;
             position: relative;
             padding: 20px;
         }
 
+        /* ออร่าฉากหลัง */
         .bg-glow {
             position: absolute;
-            width: 600px;
-            height: 600px;
+            width: 700px;
+            height: 700px;
             background: radial-gradient(circle, rgba(255, 71, 126, 0.15) 0%, rgba(0,0,0,0) 70%);
-            top: -10%;
-            left: -10%;
-            animation: drift 10s infinite alternate ease-in-out;
+            top: -20%;
+            left: -20%;
+            animation: drift 12s infinite alternate ease-in-out;
             z-index: 1;
         }
 
         .bg-glow2 {
             position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(123, 97, 255, 0.15) 0%, rgba(0,0,0,0) 70%);
-            bottom: -10%;
-            right: -10%;
-            animation: drift 8s infinite alternate-reverse ease-in-out;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, rgba(0,0,0,0) 70%);
+            bottom: -20%;
+            right: -20%;
+            animation: drift 9s infinite alternate-reverse ease-in-out;
             z-index: 1;
         }
 
+        /* กรอบหลักดีไซน์มือถือ */
         .container {
-            background: rgba(20, 16, 38, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 2.5rem 1.5rem;
-            border-radius: 32px;
+            background: rgba(15, 11, 30, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            padding: 2.2rem 1.6rem;
+            border-radius: 36px;
             text-align: center;
             width: 100%;
-            max-width: 400px;
+            max-width: 390px;
             z-index: 10;
             border: 2px solid transparent;
-            background-image: linear-gradient(rgba(20, 16, 38, 0.9), rgba(20, 16, 38, 0.9)), 
-                              linear-gradient(45deg, #ff477e, #7b61ff, #00f2fe);
+            background-image: linear-gradient(rgba(15, 11, 30, 0.95), rgba(15, 11, 30, 0.95)), 
+                              linear-gradient(135deg, #ff477e, #7b61ff, #00f2fe, #ff477e);
+            background-size: 300% 300%;
             background-origin: border-box;
             background-clip: padding-box, border-box;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 71, 126, 0.2);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 71, 126, 0.2);
             position: relative;
+            animation: borderRotate 8s linear infinite;
         }
 
-        .container::before {
-            content: '★';
+        /* ดอกไม้ประดับขอบ */
+        .deco-flower {
             position: absolute;
-            top: 15px;
-            left: 20px;
-            color: #00f2fe;
-            font-size: 1.2rem;
-            animation: blink 1s infinite alternate;
+            font-size: 1.4rem;
+            z-index: 15;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+            animation: flowerFloat 3s infinite alternate ease-in-out;
         }
+        .df-1 { top: -12px; left: -8px; animation-delay: 0s; }
+        .df-2 { top: -12px; right: -8px; animation-delay: 0.5s; }
+        .df-3 { bottom: -12px; left: -8px; animation-delay: 1s; }
+        .df-4 { bottom: -12px; right: -8px; animation-delay: 1.5s; }
 
-        .container::after {
-            content: '★';
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            color: #ff477e;
-            font-size: 1.2rem;
-            animation: blink 1s infinite alternate 0.5s;
-        }
-
-        /* สไลด์โชว์รูปภาพ */
+        /* โซนกรอบรูปขนาดเล็ก */
         .photo-container {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 24px;
             padding: 12px;
             margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden; /* ล็อกเอฟเฟกต์ให้อยู่แค่ในกรอบนี้ */
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
         }
+
+        .inner-flower {
+            position: absolute;
+            font-size: 1rem;
+            z-index: 12;
+            opacity: 0.8;
+        }
+        .if-1 { top: 18px; left: 18px; }
+        .if-2 { top: 18px; right: 18px; }
 
         .photo-wrapper {
             width: 100%;
             height: 280px;
-            border-radius: 16px;
+            border-radius: 18px;
             overflow: hidden;
-            border: 2px solid #fff;
+            border: 2px solid rgba(255, 255, 255, 0.9);
             position: relative;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            background: #141026;
         }
 
+        /* อนิเมชั่นเปลี่ยนรูปแบบสมูท */
         .slide {
-            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            opacity: 0;
+            transform: scale(1.15) rotate(-3deg);
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            z-index: 1;
         }
 
-        .active {
-            display: block;
+        .slide.active {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+            z-index: 2;
         }
 
+        /* เอฟเฟกต์ละอองวิ่งในกรอบเล็ก */
+        .box-particle {
+            position: absolute;
+            pointer-events: none;
+            z-index: 5;
+            bottom: -20px;
+            animation: floatInsideBox 3.5s linear infinite;
+        }
+
+        /* หลอดเลือด */
         .hp-bar-wrapper {
-            margin-top: 10px;
+            margin-top: 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             font-size: 0.8rem;
             color: #ff85a2;
+            font-weight: bold;
         }
 
         .hp-bar {
             flex-grow: 1;
             height: 8px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 10px;
             margin: 0 10px;
             overflow: hidden;
-            border: 1px solid rgba(255, 71, 126, 0.3);
+            border: 1px solid rgba(255, 71, 126, 0.4);
         }
 
         .hp-fill {
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, #ff477e, #ff85a2);
-            animation: hpPulse 2s infinite alternate;
+            background: linear-gradient(90deg, #ff477e, #7b61ff, #ff85a2);
+            background-size: 200% 100%;
+            animation: hpPulse 2s infinite linear;
         }
 
         .status-tag {
             display: inline-block;
-            background: linear-gradient(90deg, rgba(255, 71, 126, 0.2), rgba(123, 97, 255, 0.2));
+            background: linear-gradient(90deg, rgba(255, 71, 126, 0.25), rgba(0, 242, 254, 0.25));
             color: #fff;
-            padding: 6px 18px;
+            padding: 5px 16px;
             border-radius: 50px;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
+            font-weight: bold;
             border: 1px solid #ff477e;
-            margin-bottom: 1.2rem;
-            letter-spacing: 1px;
-            box-shadow: 0 0 10px rgba(255, 71, 126, 0.4);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
         }
 
         h1 {
             font-family: 'Itim', cursive;
-            font-size: 3.5rem;
-            background: linear-gradient(135deg, #00f2fe 0%, #ff477e 100%);
+            font-size: 3.4rem;
+            background: linear-gradient(135deg, #00f2fe 0%, #ff477e 50%, #7b61ff 100%);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
-            filter: drop-shadow(0 2px 10px rgba(0,242,254,0.4));
+            margin-bottom: 0.2rem;
+            line-height: 1.1;
+            animation: textShine 4s linear infinite;
         }
 
         .subtitle {
-            color: #a5a1b8;
-            font-size: 1rem;
-            letter-spacing: 2px;
+            color: #8e8a9f;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
             margin-bottom: 1.5rem;
+            font-weight: bold;
         }
 
         .love-btn {
-            background: linear-gradient(90deg, #ff477e, #7b61ff);
+            background: linear-gradient(45deg, #ff477e, #7b61ff, #00f2fe);
+            background-size: 200% auto;
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 12px 32px;
             border-radius: 50px;
             font-family: 'Mitr', sans-serif;
             font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(255, 71, 126, 0.4);
-            transition: 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: textShine 3s linear infinite;
         }
 
         .love-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(123, 97, 255, 0.6);
+            transform: scale(1.05) translateY(-2px);
         }
 
-        .particle {
+        /* 💥 มหาเอฟเฟกต์ระเบิดจัดเต็มสูบ 💥 */
+        .heart-bomb {
             position: absolute;
+            z-index: 101;
             pointer-events: none;
-            animation: floatUp 5s linear infinite;
-            z-index: 2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 11rem;
+            animation: heartPopIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.4) forwards;
+            filter: drop-shadow(0 0 40px #ff477e);
         }
 
-        .floating-img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
+        /* การ์ดสุ่ม SSR โผล่ตรงกลาง */
+        .image-popup {
+            position: absolute;
+            z-index: 100;
+            pointer-events: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 270px;
+            height: 270px;
+            border-radius: 28px;
+            overflow: hidden;
+            border: 4px solid #fff;
+            box-shadow: 0 0 50px rgba(255, 71, 126, 0.9), 0 0 30px rgba(0, 242, 254, 0.5);
+            animation: imageShow 2.2s cubic-bezier(0.175, 0.885, 0.32, 1.25) forwards;
+        }
+
+        .image-popup img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border: 2px solid #fff;
-            box-shadow: 0 0 10px rgba(255, 71, 126, 0.5);
         }
 
+        .rarity-tag {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, #ff477e, #7b61ff);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        /* 🎆 อนิเมชั่นสะเก็ดระเบิดกระจายรอบตัว (ปรับให้เยอะขึ้น ถี่ขึ้น กว้างขึ้น) 🎆 */
+        .sparkle {
+            position: absolute;
+            z-index: 102;
+            pointer-events: none;
+            top: 50%;
+            left: 50%;
+            font-size: 2rem;
+            font-weight: bold;
+            animation: sparkleOut var(--sdur) cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+        }
+
+        /* คีย์เฟรมแอนิเมชัน */
         @keyframes drift {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 50px) scale(1.2); }
+            100% { transform: translate(40px, 30px) scale(1.1); }
         }
-
-        @keyframes blink {
-            0% { opacity: 0.3; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1.2); }
+        @keyframes flowerFloat {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-4px) rotate(8deg); }
         }
-
-        @keyframes hpPulse {
-            0% { opacity: 0.8; }
-            100% { opacity: 1; box-shadow: 0 0 8px #ff477e; }
+        @keyframes borderRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) rotate(0deg) scale(0); opacity: 0; }
-            20% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg) scale(1.3); opacity: 0; }
+        @keyframes textShine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+        @keyframes floatInsideBox {
+            0% { transform: translateY(0) scale(0) rotate(0deg); opacity: 0; }
+            15% { opacity: 0.8; }
+            85% { opacity: 0.8; }
+            100% { transform: translateY(-320px) scale(1.3) rotate(180deg); opacity: 0; }
+        }
+        @keyframes heartPopIn {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; filter: brightness(1.3); }
+            100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+        }
+        @keyframes imageShow {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(-25deg); opacity: 0; }
+            12% { transform: translate(-50%, -50%) scale(1) rotate(4deg); opacity: 1; }
+            85% { transform: translate(-50%, -50%) scale(1.03) rotate(4deg); opacity: 1; filter: blur(0); }
+            100% { transform: translate(-50%, -50%) scale(0) rotate(30deg); opacity: 0; filter: blur(8px); }
+        }
+        
+        /* สั่งให้กระจายตามค่าตัวแปรใน JS */
+        @keyframes sparkleOut {
+            0% { transform: translate(-50%, -50%) translate(0,0) scale(0) rotate(0deg); opacity: 0; }
+            15% { opacity: 1; filter: drop-shadow(0 0 15px var(--scolor)); }
+            100% { transform: translate(-50%, -50%) translate(var(--sx), var(--sy)) scale(var(--sscale)) rotate(var(--srot)); opacity: 0; }
         }
     </style>
 </head>
@@ -235,13 +338,19 @@
     <div class="bg-glow2"></div>
 
     <div class="container">
-        <div class="photo-container">
-            <div class="photo-wrapper">
-                <img class="slide active" src="7E2AA4DB-934D-4C32-A800-88634BA7EB0C.jpg" alt="รูปเอ 1">
-                <img class="slide" src="8E67A840-C91D-4EDC-808C-9EBA2103BA22.jpg" alt="รูปเอ 2">
-                <img class="slide" src="58AB81CA-1FD3-483E-A14A-579FA75CAAC1.jpg" alt="รูปเอ 3">
-                <img class="slide" src="58AB81CA-1FD3-483E-A14A-579FA75CAAC1.jpg" alt="รูปเอ 4">
+        <div class="deco-flower df-1">🌸</div>
+        <div class="deco-flower df-2">🌷</div>
+        <div class="deco-flower df-3">🌷</div>
+        <div class="deco-flower df-4">🌸</div>
+
+        <div class="photo-container" id="photoBox">
+            <div class="inner-flower if-1">🌸</div>
+            <div class="inner-flower if-2">🌸</div>
+            
+            <div class="photo-wrapper" id="slideshow">
+                <!-- รูปภาพจะรันตรงนี้อัตโนมัติ -->
             </div>
+            
             <div class="hp-bar-wrapper">
                 <span>LV.999 รักเอ</span>
                 <div class="hp-bar"><div class="hp-fill"></div></div>
@@ -249,70 +358,110 @@
             </div>
         </div>
         
-        <div class="status-tag">✦ LOVE A ✦</div>
+        <div class="status-tag">✦ MY SUNSHINE ✦</div>
         <h1>รักเอ<br>ที่สุดในโลก</h1>
-        <div class="subtitle">forever and ever</div>
+        <div class="subtitle">ไม่ใช่อิลสลิกแต่รักเมียที่สุดในโลก</div>
         
-        <button class="love-btn" onclick="burstHearts()">กดเติมความรัก ❤️</button>
+        <button class="love-btn" onclick="popSSRCard()">กดเติมความรัก ❤️</button>
     </div>
 
     <script>
-        // ระบบสลับรูปภาพอัตโนมัติ 4 รูป
+        const totalImages = 20;
+        const myImages = [];
+        for (let i = 1; i <= totalImages; i++) {
+            myImages.push(`a${i}.jpg`);
+        }
+
+        const boxEffects = ['🌸', '✨', '💖', '🌷', '💮', '🌟', '💕'];
+        const rarityNames = ['UR คลั่งรักที่สุด', 'SSR น่ารักเกินต้าน', 'SP หวานใจนัมเบอร์วัน', 'SSR ตกหลุมรักซ้ำๆ'];
+
+        // สไลด์โชว์หลัก
+        const slideshowContainer = document.getElementById('slideshow');
+        myImages.forEach((imgSrc, index) => {
+            const img = document.createElement('img');
+            img.classList.add('slide');
+            if (index === 0) img.classList.add('active');
+            img.src = imgSrc;
+            img.alt = `รูปเอ ${index + 1}`;
+            slideshowContainer.appendChild(img);
+        });
+
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
-        
         setInterval(() => {
             if(slides.length > 0) {
                 slides[currentSlide].classList.remove('active');
                 currentSlide = (currentSlide + 1) % slides.length;
                 slides[currentSlide].classList.add('active');
             }
-        }, 2000); // เปลี่ยนรูปทุกๆ 3 วินาที
+        }, 3000);
 
-        // ระบบของลอย
-        const emojis = ['💖', '✨', '🖤', '🤍', '💘', '⭐'];
-
-        function createParticle(x = null, isBurst = false) {
+        // ละอองพ่นในกรอบเล็ก
+        const photoBox = document.getElementById('photoBox');
+        function createBoxParticle() {
             const p = document.createElement('div');
-            p.classList.add('particle');
-            
-            const shouldBeImage = Math.random() < 0.4;
-            
-            if (shouldBeImage && slides.length > 0) {
-                const img = document.createElement('img');
-                img.classList.add('floating-img');
-                img.src = slides[currentSlide].src; 
-                p.appendChild(img);
-            } else {
-                p.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-                p.style.fontSize = Math.random() * 20 + 15 + 'px';
-            }
-            
-            if (isBurst && x) {
-                p.style.left = (x + (Math.random() * 120 - 60)) + 'px';
-                p.style.top = '75vh';
-                p.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
-            } else {
-                p.style.left = Math.random() * 100 + 'vw';
-                p.style.animationDuration = (Math.random() * 3 + 3) + 's';
-            }
-            
-            document.body.appendChild(p);
-            setTimeout(() => { p.remove(); }, 5000);
+            p.classList.add('box-particle');
+            p.innerHTML = boxEffects[Math.floor(Math.random() * boxEffects.length)];
+            p.style.left = Math.random() * 90 + 5 + '%';
+            p.style.fontSize = Math.random() * 12 + 14 + 'px';
+            p.style.animationDuration = (Math.random() * 1.5 + 2) + 's';
+            photoBox.appendChild(p);
+            setTimeout(() => { p.remove(); }, 3500);
         }
+        setInterval(createBoxParticle, 250);
 
-        setInterval(() => createParticle(), 400);
+        // 💥 มหาเอฟเฟกต์ระเบิดหัวใจแบบทวีคูณ (สุ่มกระจาย 45 ชิ้นรอบทิศแบบหนาแน่น) 💥
+        function popSSRCard() {
+            // 1. หัวใจดวงแม่กระแทกหน้าจอ
+            const bomb = document.createElement('div');
+            bomb.classList.add('heart-bomb');
+            bomb.innerHTML = '❤️';
+            document.body.appendChild(bomb);
+            setTimeout(() => { bomb.remove(); }, 500);
 
-        function burstHearts() {
-            const btn = document.querySelector('.love-btn');
-            const rect = btn.getBoundingClientRect();
-            const posX = rect.left + (rect.width / 2);
-            
-            for(let i=0; i<15; i++) {
-                setTimeout(() => {
-                    createParticle(posX, true);
-                }, i * 40);
-            }
+            // 2. ปล่อยการ์ด SSR โผล่ขึ้นมาตามปกติ
+            setTimeout(() => {
+                const popup = document.createElement('div');
+                popup.classList.add('image-popup');
+                
+                const img = document.createElement('img');
+                img.src = myImages[Math.floor(Math.random() * myImages.length)];
+                
+                const tag = document.createElement('div');
+                tag.classList.add('rarity-tag');
+                tag.innerHTML = `✨ ${rarityNames[Math.floor(Math.random() * rarityNames.length)]} ✨`;
+                
+                popup.appendChild(img);
+                popup.appendChild(tag);
+                document.body.appendChild(popup);
+                setTimeout(() => { popup.remove(); }, 2200);
+
+                // 🎆 3. สลัดเอฟเฟกต์กระจายตัวหนาแน่นคูณสาม! (สุ่มปล่อย 45 ชิ้น คละไซส์ คละความเร็ว คละสีกระจายทั่วจอ) 🎆
+                const explosionItems = ['🌸', '✨', '💖', '🌷', '💘', '💮', '⭐', '💫', '💥'];
+                const particleCount = 45; // บูสต์จำนวนเศษระเบิดจากเดิม 16 เป็น 45 ชิ้นจุกๆ
+                const colors = ['#ff477e', '#00f2fe', '#7b61ff', '#ff85a2', '#ffffff'];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const sp = document.createElement('div');
+                    sp.classList.add('sparkle');
+                    sp.innerHTML = explosionItems[Math.floor(Math.random() * explosionItems.length)];
+                    
+                    // คำนวณองศารอบวงกลมแบบสุ่มระยะให้ฟุ้งกระจายไม่เท่ากัน
+                    const angle = (i / (particleCount / 2)) * Math.PI + (Math.random() * 0.4);
+                    const dist = Math.random() * 160 + 150; // ดีดตัวออกไปกว้างขึ้น (150px - 310px)
+                    
+                    // ส่งค่าตัวแปรสุ่มเข้าไปใน CSS Keyframes
+                    sp.style.setProperty('--sx', Math.cos(angle) * dist + 'px');
+                    sp.style.setProperty('--sy', Math.sin(angle) * dist + 'px');
+                    sp.style.setProperty('--sscale', Math.random() * 0.8 + 1.0); // สุ่มขนาดเล็กใหญ่
+                    sp.style.setProperty('--srot', Math.random() * 360 + 'deg'); // สุ่มการหมุนควงคว้าง
+                    sp.style.setProperty('--sdur', Math.random() * 0.4 + 0.8 + 's'); // สุ่มความเร็วในการพุ่งออกไป
+                    sp.style.setProperty('--scolor', colors[Math.floor(Math.random() * colors.length)]);
+
+                    document.body.appendChild(sp);
+                    setTimeout(() => { sp.remove(); }, 1200);
+                }
+            }, 300);
         }
     </script>
 
